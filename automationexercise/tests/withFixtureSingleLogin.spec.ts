@@ -3,12 +3,14 @@ import { DataProvider } from "../utils/DataProvider";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 const jsonData = DataProvider.getTestDataFromJson("testdata/credentials.json");
 
-test.describe.serial("single login for all tests with login fixture", () => {
+let page: any;
+let homePage: any;
 
-    test.use({
+test.describe.serial("single login for all tests using fixture with parameters", () => {
+
+  test.use({
     loginOptions: {
       email: jsonData.ValidUser.email,
       password: jsonData.ValidUser.password,
@@ -16,16 +18,19 @@ test.describe.serial("single login for all tests with login fixture", () => {
     },
   });
 
-  test("click contact us from home page", async ({ homePage, loggedInPage }) => {
-    await homePage.clickOnContactUs();
-    await expect(loggedInPage).toHaveURL(/contact_us$/);
+  test.beforeAll(async ({ loggedInPage, homePage:home }) => {
+    page = loggedInPage;
+    homePage = home;
   });
 
-  test("click home from contact us page", async ({ homePage, loggedInPage }) => {
+  test("click contact us from home page", async () => {
     await homePage.clickOnContactUs();
-    await expect(loggedInPage).toHaveURL(/contact_us$/);
+    await expect(page).toHaveURL(/contact_us$/);
+  });
+
+  test("click home from contact us page", async () => {
+    await expect(page).toHaveURL(/contact_us$/);
     await homePage.clickOnHome();
-    await expect(loggedInPage).toHaveURL(process.env.URL!);
+    await expect(page).toHaveURL(process.env.URL!);
   });
-
 });

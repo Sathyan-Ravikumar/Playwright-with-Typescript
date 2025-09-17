@@ -13,6 +13,7 @@ let homePage: HomePage;
 let loginPage: LoginPage;
 
 test.describe.serial("single login for all tests without fixtures", () => {
+  
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
     loginPage = new LoginPage(page);
