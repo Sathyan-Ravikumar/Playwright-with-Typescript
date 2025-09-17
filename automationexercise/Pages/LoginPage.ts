@@ -1,24 +1,20 @@
 import {Locator, Page, test} from '@playwright/test';
-
+import LoginPageLocators from '../locators/loginPage.locators';
 
 export default class LoginPage {
 
     readonly page : Page;
-    private readonly loginEmailInput: Locator;
-    private readonly loginPasswordInput :Locator;
-    private readonly loginButton :Locator;
-    private readonly loginErrorMessage :Locator;
+    private readonly locators: LoginPageLocators;
+
+
     constructor(page) {
         this.page = page;
-        this.loginEmailInput = page.getByTestId('login-email');
-        this.loginPasswordInput = page.getByTestId('login-password');
-        this.loginButton = page.getByTestId('login-button');  
-        this.loginErrorMessage = page.locator("text=Your email or password is incorrect!");
+        this.locators = new LoginPageLocators(page);
     }
 
     async enterLoginEmail(email: string) {
         try {
-            await this.loginEmailInput.fill(email);
+            await this.locators.loginEmailInput.fill(email);
         } catch (error) {
             console.log("Error while entering email " + error);
             throw error;
@@ -26,7 +22,7 @@ export default class LoginPage {
     }
     async enterLoginPassword(password: string) {
         try {
-            await this.loginPasswordInput.fill(password);
+            await this.locators.loginPasswordInput.fill(password);
         } catch (error) {
             console.log("Error while entering password " + error);
             throw error;
@@ -34,7 +30,7 @@ export default class LoginPage {
     }
     async clickOnLoginButton() {
         try {
-            await this.loginButton.click();
+            await this.locators.loginButton.click();
         } catch (error) {
             console.log("Error while clicking on login button " + error);
             throw error;
@@ -49,8 +45,8 @@ export default class LoginPage {
     
     async verifyLoginErrorMessage(expectedMessage: string) {
         try {
-            await test.expect(this.loginErrorMessage).toBeVisible();
-            await test.expect(this.loginErrorMessage).toHaveText(expectedMessage);
+            await test.expect(this.locators.loginErrorMessage).toBeVisible();
+            await test.expect(this.locators.loginErrorMessage).toHaveText(expectedMessage);
         } catch (error) {
             console.log("Error while verifying login error message " + error);
             throw error;
