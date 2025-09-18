@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test';
-import ContactUsPage from '../Pages/ContactUsPage';
+import {ContactUsPage} from '../Pages/ContactUsPage';
 import { HomePage } from '../Pages/HomePage';
 import dotenv from 'dotenv';
 import { DataProvider } from "../utils/DataProvider";

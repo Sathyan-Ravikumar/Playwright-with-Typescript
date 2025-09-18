@@ -36,7 +36,8 @@ export const test = base.extend<Fixtures>({
     await homePage.verifyLoggedInUser(loginOptions.name);
 
     await use(page);
-
+    await page.close();
+   
   },
 
   loginPage: async ({ loggedInPage }, use) => {

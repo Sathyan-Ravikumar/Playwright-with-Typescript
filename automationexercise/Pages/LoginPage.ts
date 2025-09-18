@@ -1,4 +1,4 @@
-import {Locator, Page, test} from '@playwright/test';
+import { Page, test} from '@playwright/test';
 import LoginPageLocators from '../locators/loginPage.locators';
 
 export default class LoginPage {
