@@ -4,15 +4,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
 test.describe("single login using storage state", () => {
-
-  test("click contact us from home page @session", async ({homePage,page}) => {
+  test("click contact us from home page @session", async ({
+    homePage,
+    page,
+  }) => {
     await homePage.clickOnContactUs();
     await expect(page).toHaveURL(/contact_us$/);
   });
 
-  test("click home from contact us page @session", async ({homePage,page}) => {
+  test("click home from contact us page @session", async ({
+    homePage,
+    page,
+  }) => {
     await homePage.clickOnContactUs();
     await expect(page).toHaveURL(/contact_us$/);
     await homePage.clickOnHome();

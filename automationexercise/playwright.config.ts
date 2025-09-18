@@ -4,17 +4,17 @@ export default defineConfig({
   testDir: "./tests",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1, // retry locally once too
+  retries: process.env.CI ? 2 : 1,
   workers: process.env.CI ? 1 : undefined,
 
   reporter: [
     ["html", { open: "never" }],
-    ["list"], // quick feedback in console
+    ["list"], 
   ],
 
   use: {
     baseURL: "https://automationexercise.com",
-    headless: process.env.CI ? true : false, // headed locally, headless in CI
+    headless: process.env.CI ? true : false, 
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
@@ -25,8 +25,7 @@ export default defineConfig({
     launchOptions: {
       slowMo: process.env.DEBUG ? 300 : 0,
     },
-    // ❌ don’t set storageState here globally
-    // it will be injected per project
+
   },
 
   expect: {
@@ -39,7 +38,7 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
       use: {
         ...devices["Desktop Chrome"],
-        storageState: undefined, // start fresh for login
+        storageState: undefined,
       },
     },
     {
@@ -50,6 +49,5 @@ export default defineConfig({
       },
       dependencies: ["setup"],
     },
-    // you can add firefox/webkit later the same way
   ],
 });
